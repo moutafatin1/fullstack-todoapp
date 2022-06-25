@@ -1,3 +1,6 @@
+<script context="module" lang="ts">
+</script>
+
 <script lang="ts">
 	import NavLink from '$root/components/auth/NavLink.svelte';
 	import Button from '$root/components/elements/button/Button.svelte';
