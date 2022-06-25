@@ -2,7 +2,15 @@
 	import clsx from 'clsx';
 	import Spinner from '../spinner/Spinner.svelte';
 
-	export let type: 'input' | 'button' = 'button';
+	interface $$Props extends Partial<HTMLButtonElement> {
+		// type: 'submit' | 'button';
+		size?: keyof typeof sizes;
+		variant?: keyof typeof variants;
+		isLoading?: boolean;
+		class?: string;
+	}
+
+	// export let type: 'submit' | 'button' = 'button';
 	export let size: keyof typeof sizes = 'md';
 	export let variant: keyof typeof variants = 'primary';
 	export let isLoading = false;
@@ -23,7 +31,8 @@
 </script>
 
 <button
-	{type}
+	{...$$restProps}
+	on:click
 	class={clsx(
 		'flex justify-center text-lg items-center shadow-md  transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-70 disabled:cursor-not-allowed',
 		sizes[size],

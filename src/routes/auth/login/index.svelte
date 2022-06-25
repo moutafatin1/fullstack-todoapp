@@ -22,6 +22,7 @@
 			type={TextType.text}
 			bind:value={username}
 			icon={Mail}
+			required
 		/>
 		<TextInput
 			name="password"
@@ -30,7 +31,9 @@
 			icon={Lock}
 		/>
 		<div class="flex flex-col space-y-2 text-center">
-			<Button size={'md'} class="rounded-full font-bold">Sign In</Button>
+			<Button type="button" size={'md'} class="rounded-full font-bold"
+				>Sign In</Button
+			>
 			<a
 				href="/auth/login"
 				class="text-gray-400 border-b border-gray-400 hover:text-primary hover:border-primary transition-colors md:text-lg "
