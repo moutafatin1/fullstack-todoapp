@@ -1,0 +1,29 @@
+<script lang="ts">
+	import type { SvelteComponent } from 'svelte';
+	import type { TextType } from './type';
+	import clsx from 'clsx';
+
+	export let name: string;
+	export let type: TextType;
+	export let value: string;
+	export let icon: typeof SvelteComponent;
+
+	function typeAction(node: HTMLInputElement) {
+		node.type = type;
+	}
+</script>
+
+<div class="relative flex items-center text-gray-400 w-full">
+	<svelte:component this={icon} class="absolute left-0" />
+	<input
+		bind:value
+		use:typeAction
+		type="text"
+		{name}
+		placeholder={name}
+		class={clsx(
+			'w-full pl-8 py-2 bg-transparent border-b border-gray-400  text-gray-50 font-bold placeholder:font-normal hover:border-primary focus:outline-none focus:border-primary placeholder:capitalize',
+			$$props.class
+		)}
+	/>
+</div>
