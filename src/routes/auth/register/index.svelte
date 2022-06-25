@@ -10,37 +10,35 @@
 	let password = '';
 </script>
 
-<main class="flex flex-col items-center h-screen bg-darkGray ">
-	<NavLink />
-	<form
-		class="flex flex-col items-center
-	justify-center h-full space-y-7 w-full px-10"
-	>
-		<TextInput
-			name="username"
-			type={TextType.text}
-			bind:value={username}
-			icon={User}
-		/>
-		<TextInput
-			name="email"
-			type={TextType.email}
-			bind:value={email}
-			icon={Mail}
-		/>
-		<TextInput
-			name="password"
-			type={TextType.password}
-			bind:value={password}
-			icon={Lock}
-		/>
-		<div class="flex flex-col space-y-2 text-center">
-			<Button size={'md'} class="rounded-full font-bold">Sign Up</Button>
-			<a
-				href="/auth/login"
-				class="text-gray-400 border-b border-gray-400 hover:text-primary hover:border-primary transition-colors md:text-lg"
-				>I'm already member</a
-			>
-		</div>
-	</form>
-</main>
+<NavLink />
+<form
+	class="flex flex-col items-center
+	justify-center h-full space-y-7 w-full container px-10"
+>
+	<TextInput
+		name="username"
+		type={TextType.text}
+		bind:value={username}
+		icon={User}
+	/>
+	<TextInput
+		name="email"
+		type={TextType.email}
+		bind:value={email}
+		icon={Mail}
+	/>
+	<TextInput
+		name="password"
+		type={TextType.password}
+		bind:value={password}
+		icon={Lock}
+	/>
+	<div class="flex flex-col space-y-2 text-center">
+		<Button size={'md'} class="rounded-full font-bold">Sign Up</Button>
+		<a
+			href="/auth/login"
+			class="text-gray-400 border-b border-gray-400 hover:text-primary hover:border-primary transition-colors md:text-lg"
+			>I'm already member</a
+		>
+	</div>
+</form>

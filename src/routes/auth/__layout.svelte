@@ -7,5 +7,7 @@
 		</h1>
 		<img src="/taskSvg.svg" alt="" class="w-1/2 drop-shadow-lg" />
 	</div>
-	<slot />
+	<main class="flex flex-col items-center h-screen bg-darkGray ">
+		<slot />
+	</main>
 </div>

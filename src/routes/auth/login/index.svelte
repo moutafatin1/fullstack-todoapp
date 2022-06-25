@@ -4,41 +4,35 @@
 	import TextInput from '$root/components/elements/form/TextInput.svelte';
 
 	import { TextType } from '$root/components/elements/form/type';
-	import clsx from 'clsx';
 	import { Mail, Lock } from 'lucide-svelte';
-	const active: string = 'signin';
 	let username = '';
 	let password = '';
 </script>
 
-<main class="flex flex-col items-center h-screen bg-darkGray ">
-	<NavLink />
-	<form
-		class="flex flex-col items-center
-	justify-center h-full space-y-7 w-full px-10"
-	>
-		<TextInput
-			name="username"
-			type={TextType.text}
-			bind:value={username}
-			icon={Mail}
-			required
-		/>
-		<TextInput
-			name="password"
-			type={TextType.text}
-			bind:value={password}
-			icon={Lock}
-		/>
-		<div class="flex flex-col space-y-2 text-center">
-			<Button type="button" size={'md'} class="rounded-full font-bold"
-				>Sign In</Button
-			>
-			<a
-				href="/auth/login"
-				class="text-gray-400 border-b border-gray-400 hover:text-primary hover:border-primary transition-colors md:text-lg "
-				>Create New Account</a
-			>
-		</div>
-	</form>
-</main>
+<NavLink />
+<form
+	class="flex flex-col items-center
+	justify-center h-full space-y-7 w-full max-w-2xl px-10"
+>
+	<TextInput
+		name="username"
+		type={TextType.text}
+		bind:value={username}
+		icon={Mail}
+		required
+	/>
+	<TextInput
+		name="password"
+		type={TextType.text}
+		bind:value={password}
+		icon={Lock}
+	/>
+	<div class="flex flex-col space-y-2 text-center">
+		<Button size={'md'} class="rounded-full font-bold">Sign In</Button>
+		<a
+			href="/auth/login"
+			class="text-gray-400 border-b border-gray-400 hover:text-primary hover:border-primary transition-colors md:text-lg "
+			>Create New Account</a
+		>
+	</div>
+</form>
