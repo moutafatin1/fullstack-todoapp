@@ -3,14 +3,12 @@
 	import Spinner from '../spinner/Spinner.svelte';
 
 	interface $$Props extends Partial<HTMLButtonElement> {
-		// type: 'submit' | 'button';
 		size?: keyof typeof sizes;
 		variant?: keyof typeof variants;
 		isLoading?: boolean;
 		class?: string;
 	}
 
-	// export let type: 'submit' | 'button' = 'button';
 	export let size: keyof typeof sizes = 'md';
 	export let variant: keyof typeof variants = 'primary';
 	export let isLoading = false;
