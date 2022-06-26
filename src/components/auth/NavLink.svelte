@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import clsx from 'clsx';
-	import Button from '../elements/button/Button.svelte';
-	import { Mail } from 'lucide-svelte';
 </script>
 
 <div class="mt-5 flex md:self-end md:pr-10">

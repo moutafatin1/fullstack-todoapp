@@ -3,14 +3,14 @@
 	import type { TextType } from './type';
 	import clsx from 'clsx';
 
-	interface $$Props extends Partial<HTMLInputElement> {
-		required?: boolean;
-		name: string;
-		value: string;
-		type: TextType;
-		icon?: typeof SvelteComponent;
-		class?: string;
-	}
+	// interface $$Props extends Partial<HTMLInputElement> {
+	// 	required?: boolean;
+	// 	name: string;
+	// 	value: string;
+	// 	type: TextType;
+	// 	icon?: typeof SvelteComponent;
+	// 	class?: string;
+	// }
 
 	export let name: string;
 	export let type: TextType;
@@ -26,9 +26,7 @@
 <div class="relative flex items-center text-gray-400 w-full">
 	<svelte:component this={icon} class="absolute left-0" />
 	<input
-		{...$$restProps}
 		bind:value
-		use:typeAction
 		type="text"
 		{name}
 		placeholder={name}
@@ -37,5 +35,6 @@
 			$$props.class
 		)}
 		{required}
+		use:typeAction
 	/>
 </div>
