@@ -24,7 +24,7 @@
 	import LockIcon from 'svelte-feather-icons/src/icons/LockIcon.svelte';
 	import UserIcon from 'svelte-feather-icons/src/icons/UserIcon.svelte';
 
-	export let error;
+	export let error: string;
 
 	let username = '';
 	let password = '';
@@ -54,6 +54,9 @@
 		bind:value={password}
 		icon={LockIcon}
 	/>
+	{#if error}
+		<p class="text-red-500">{error}</p>
+	{/if}
 	<div class="flex flex-col space-y-2 text-center">
 		<Button type="submit" size="md" class="rounded-full font-bold"
 			>Sign In</Button
