@@ -5,7 +5,7 @@
 		if (session.user) {
 			return {
 				status: 302,
-				redirect: '/protected'
+				redirect: '/'
 			};
 		}
 
@@ -21,8 +21,7 @@
 	import TextInput from '$root/components/elements/form/TextInput.svelte';
 	import { enhance } from '$lib/form';
 	import { TextType } from '$root/components/elements/form/type';
-	import LockIcon from 'svelte-feather-icons/src/icons/LockIcon.svelte';
-	import UserIcon from 'svelte-feather-icons/src/icons/UserIcon.svelte';
+	import { LockIcon, UserIcon } from '$root/components/icons';
 
 	export let error: string;
 

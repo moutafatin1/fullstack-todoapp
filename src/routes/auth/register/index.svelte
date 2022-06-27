@@ -20,9 +20,8 @@
 	import { TextType } from '$root/components/elements/form/type';
 	import { enhance } from '$root/lib/form';
 
-	import MailIcon from 'svelte-feather-icons/src/icons/MailIcon.svelte';
-	import LockIcon from 'svelte-feather-icons/src/icons/LockIcon.svelte';
-	import UserIcon from 'svelte-feather-icons/src/icons/UserIcon.svelte';
+	import { LockIcon, UserIcon, MailIcon } from '$root/components/icons';
+
 	import { session } from '$app/stores';
 
 	export let error: string;
