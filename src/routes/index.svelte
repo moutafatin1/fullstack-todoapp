@@ -5,6 +5,10 @@
 	import { CheckSquareIcon } from '$root/components/icons';
 </script>
 
+<svelte:head>
+	<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</svelte:head>
+
 <main class="h-screen bg-darkGray bg-wavesSvg bg-no-repeat bg-bottom">
 	<nav
 		class="flex items-center justify-between container mx-auto px-5 md:px-0 pt-5"
@@ -17,7 +21,7 @@
 			{#if !$session.user}
 				<a
 					href="/auth/register"
-					class="text-lg text-gray-300 hover:text-gray-500 transition-colors font-bold"
+					class="text-lg text-gray-300 hover:text-gray-500 transition-colors font-bold pr-3"
 					>Sign Up</a
 				>
 				<a href="/auth/login">
