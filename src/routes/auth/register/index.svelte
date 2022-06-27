@@ -24,11 +24,13 @@
 
 	import { session } from '$app/stores';
 
-	export let error: string;
-	export let success: string;
+	export let errors: {
+		username: string;
+		password: string;
+		error: string;
+	};
 
 	let username = '';
-	let email = '';
 	let password = '';
 </script>
 
@@ -36,10 +38,10 @@
 <form
 	use:enhance={{
 		result: async ({ response }) => {
-			$session.user = { username: 'Oussama casa' };
+			$session.user = (await response.json()).user;
 		},
 		error: async ({ response }) => {
-			error = (await response?.text()) ?? '';
+			errors = (await response?.json()).errors;
 		}
 	}}
 	method="post"
@@ -53,13 +55,12 @@
 		icon={UserIcon}
 		required
 	/>
-	<TextInput
-		name="email"
-		type={TextType.email}
-		bind:value={email}
-		icon={MailIcon}
-		required
-	/>
+	{#if errors?.error}
+		<p class="text-red-500">{errors.error}</p>
+	{/if}
+	{#if errors?.username}
+		<p class="text-red-500">{errors.username}</p>
+	{/if}
 	<TextInput
 		name="password"
 		type={TextType.password}
@@ -67,14 +68,11 @@
 		icon={LockIcon}
 		required
 	/>
-	{#if error}
-		<p class="text-red-500">{error}</p>
+
+	{#if errors?.password}
+		<p class="text-red-500">{errors.password}</p>
 	{/if}
 
-	{#if success}
-		<p class="text-green-500">Thank you for signing up!</p>
-		<p><a href="/auth/login">You can log in.</a></p>
-	{/if}
 	<div class="flex flex-col space-y-2 text-center">
 		<Button type="submit" size={'md'} class="rounded-full font-bold"
 			>Sign Up</Button

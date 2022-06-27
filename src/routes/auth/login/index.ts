@@ -1,30 +1,35 @@
 import { prisma } from '$lib/prisma';
+import { formValidation } from '$root/lib/utils';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as argon2 from 'argon2';
 import * as cookie from 'cookie';
+import { z } from 'zod';
+
+const schemaLogin = z.object({
+	username: z
+		.string({ required_error: 'Username is required' })
+		.min(6, 'Username myst be at least 6 charachters long'),
+	password: z.string().min(6, 'Password myst be at least 6 charachters long')
+});
+
+type FormData = z.TypeOf<typeof schemaLogin>;
 
 export const post: RequestHandler = async ({ request }) => {
-	const form = await request.formData();
-	const username = form.get('username');
-	const password = form.get('password');
+	const { formData, errors } = await formValidation<FormData>({
+		request,
+		schema: schemaLogin
+	});
 
-	if (typeof username !== 'string' || typeof password !== 'string') {
+	if (errors) {
 		return {
 			status: 400,
 			body: {
-				error: 'Enter a valid username and password.'
+				errors
 			}
 		};
 	}
 
-	if (!username || !password) {
-		return {
-			status: 400,
-			body: {
-				error: 'Username and password are required.'
-			}
-		};
-	}
+	const { username, password } = formData;
 
 	const user = await prisma.user.findUnique({
 		where: {
@@ -36,7 +41,9 @@ export const post: RequestHandler = async ({ request }) => {
 		return {
 			status: 404,
 			body: {
-				error: 'user not found'
+				errors: {
+					error: "User doesn't exists"
+				}
 			}
 		};
 	}

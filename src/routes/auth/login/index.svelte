@@ -23,7 +23,12 @@
 	import { TextType } from '$root/components/elements/form/type';
 	import { LockIcon, UserIcon } from '$root/components/icons';
 
-	export let error: string;
+	export let errors: {
+		username: string;
+		password: string;
+		error: string;
+	};
+	console.log('🚀 ~ file: index.svelte ~ line 27 ~ errors', errors);
 
 	let username = '';
 	let password = '';
@@ -32,8 +37,11 @@
 <NavLink />
 <form
 	use:enhance={{
-		result: ({ form, response }) => {
+		result: async ({ form, response }) => {
 			$session.user = { username: 'waiting for response' };
+		},
+		error: async ({ response }) => {
+			errors = (await response?.json()).errors;
 		}
 	}}
 	method="post"
@@ -47,14 +55,20 @@
 		icon={UserIcon}
 		required
 	/>
+	{#if errors?.error}
+		<p class="text-red-500">{errors.error}</p>
+	{/if}
+	{#if errors?.username}
+		<p class="text-red-500">{errors.username}</p>
+	{/if}
 	<TextInput
 		name="password"
 		type={TextType.password}
 		bind:value={password}
 		icon={LockIcon}
 	/>
-	{#if error}
-		<p class="text-red-500">{error}</p>
+	{#if errors?.password}
+		<p class="text-red-500">{errors.password}</p>
 	{/if}
 	<div class="flex flex-col space-y-2 text-center">
 		<Button type="submit" size="md" class="rounded-full font-bold"

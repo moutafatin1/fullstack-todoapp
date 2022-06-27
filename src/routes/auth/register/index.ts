@@ -1,43 +1,39 @@
 import { prisma } from '$lib/prisma';
+import { formValidation } from '$root/lib/utils';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as argon2 from 'argon2';
 import * as cookie from 'cookie';
+import { z } from 'zod';
+
+const schemaRegister = z.object({
+	username: z
+		.string({ required_error: 'Username is required' })
+		.min(6, 'Username myst be at least 6 charachters long'),
+	password: z.string().min(6, 'Password myst be at least 6 charachters long')
+});
+
+type SchemaRegister = z.TypeOf<typeof schemaRegister>;
 
 export const post: RequestHandler = async ({ request }) => {
-	const form = await request.formData();
-	const username = form.get('username');
-	const email = form.get('email');
-	const password = form.get('password');
+	const { formData, errors } = await formValidation<SchemaRegister>({
+		request,
+		schema: schemaRegister
+	});
 
-	// TODO: Validation
-
-	if (
-		typeof username !== 'string' ||
-		typeof password !== 'string' ||
-		typeof email !== 'string'
-	) {
+	if (errors) {
 		return {
 			status: 400,
 			body: {
-				error: 'something went wrong'
+				errors
 			}
 		};
 	}
-
-	if (!username || !password || !email) {
-		return {
-			status: 400,
-			body: {
-				error: 'fields required'
-			}
-		};
-	}
+	const { password, username } = formData;
 
 	try {
 		const user = await prisma.user.create({
 			data: {
 				username,
-				email,
 				passwordHash: await argon2.hash(password)
 			}
 		});
@@ -45,7 +41,7 @@ export const post: RequestHandler = async ({ request }) => {
 		return {
 			status: 200,
 			body: {
-				user: { username },
+				user: { username }
 			},
 			headers: {
 				'Set-Cookie': cookie.serialize('kitSession', user.userAuthToken, {
@@ -61,7 +57,9 @@ export const post: RequestHandler = async ({ request }) => {
 		return {
 			status: 400,
 			body: {
-				error: 'User already exists.'
+				errors: {
+					error: 'User already exists.'
+				}
 			}
 		};
 	}
