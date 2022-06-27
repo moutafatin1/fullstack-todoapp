@@ -1,6 +1,7 @@
 import { prisma } from '$lib/prisma';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as argon2 from 'argon2';
+import * as cookie from 'cookie';
 
 export const post: RequestHandler = async ({ request }) => {
 	const form = await request.formData();
@@ -33,7 +34,7 @@ export const post: RequestHandler = async ({ request }) => {
 	}
 
 	try {
-		await prisma.user.create({
+		const user = await prisma.user.create({
 			data: {
 				username,
 				email,
@@ -44,7 +45,16 @@ export const post: RequestHandler = async ({ request }) => {
 		return {
 			status: 200,
 			body: {
-				success: 'Success'
+				user: { username },
+			},
+			headers: {
+				'Set-Cookie': cookie.serialize('kitSession', user.userAuthToken, {
+					path: '/',
+					httpOnly: true,
+					sameSite: 'strict',
+					secure: process.env.NODE_ENV === 'production',
+					maxAge: 60 * 60 * 24 * 30
+				})
 			}
 		};
 	} catch (error) {

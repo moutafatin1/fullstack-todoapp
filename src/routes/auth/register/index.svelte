@@ -5,7 +5,7 @@
 		if (session.user) {
 			return {
 				status: 302,
-				redirect: '/'
+				redirect: '/protected'
 			};
 		}
 
@@ -18,30 +18,15 @@
 	import Button from '$root/components/elements/button/Button.svelte';
 	import TextInput from '$root/components/elements/form/TextInput.svelte';
 	import { TextType } from '$root/components/elements/form/type';
-	import { send } from '$lib/api';
+	import { enhance } from '$root/lib/form';
 
 	import MailIcon from 'svelte-feather-icons/src/icons/MailIcon.svelte';
 	import LockIcon from 'svelte-feather-icons/src/icons/LockIcon.svelte';
 	import UserIcon from 'svelte-feather-icons/src/icons/UserIcon.svelte';
+	import { session } from '$app/stores';
 
 	export let error: string;
 	export let success: string;
-	async function register(event: SubmitEvent) {
-		error = '';
-
-		const formEl = event.target as HTMLFormElement;
-		const response = await send(formEl);
-
-		if (response.error) {
-			error = response.error;
-		}
-
-		if (response.success) {
-			success = response.success;
-		}
-
-		formEl.reset();
-	}
 
 	let username = '';
 	let email = '';
@@ -50,7 +35,14 @@
 
 <NavLink />
 <form
-	on:submit|preventDefault={register}
+	use:enhance={{
+		result: async ({ response }) => {
+			$session.user = { username: 'Oussama casa' };
+		},
+		error: async ({ response }) => {
+			error = (await response?.text()) ?? '';
+		}
+	}}
 	method="post"
 	class="flex flex-col items-center
 	justify-center h-full space-y-7 w-full container px-10"

@@ -5,7 +5,7 @@
 		if (session.user) {
 			return {
 				status: 302,
-				redirect: '/'
+				redirect: '/protected'
 			};
 		}
 
@@ -19,32 +19,24 @@
 	import NavLink from '$root/components/auth/NavLink.svelte';
 	import Button from '$root/components/elements/button/Button.svelte';
 	import TextInput from '$root/components/elements/form/TextInput.svelte';
-
+	import { enhance } from '$lib/form';
 	import { TextType } from '$root/components/elements/form/type';
-	import { send } from '$root/lib/api';
 	import LockIcon from 'svelte-feather-icons/src/icons/LockIcon.svelte';
 	import UserIcon from 'svelte-feather-icons/src/icons/UserIcon.svelte';
 
 	export let error;
 
-	async function login(event: SubmitEvent) {
-		const formEl = event.target as HTMLFormElement;
-		const response = await send(formEl);
-
-		if (response.error) {
-			error = response.error;
-		}
-
-		$session.user = response.user;
-		formEl.reset();
-	}
 	let username = '';
 	let password = '';
 </script>
 
 <NavLink />
 <form
-	on:submit|preventDefault={login}
+	use:enhance={{
+		result: ({ form, response }) => {
+			$session.user = { username: 'waiting for response' };
+		}
+	}}
 	method="post"
 	class="flex flex-col items-center
 	justify-center h-full space-y-7 w-full max-w-2xl px-10"
