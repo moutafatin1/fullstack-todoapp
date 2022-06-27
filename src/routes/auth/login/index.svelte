@@ -16,29 +16,25 @@
 <script lang="ts">
 	import { session } from '$app/stores';
 
-	import NavLink from '$root/components/auth/NavLink.svelte';
 	import Button from '$root/components/elements/button/Button.svelte';
 	import TextInput from '$root/components/elements/form/TextInput.svelte';
-	import { enhance } from '$lib/form';
 	import { TextType } from '$root/components/elements/form/type';
+
 	import { LockIcon, UserIcon } from '$root/components/icons';
+
+	import { enhance } from '$lib/form';
 
 	export let errors: {
 		username: string;
 		password: string;
 		error: string;
 	};
-	console.log('🚀 ~ file: index.svelte ~ line 27 ~ errors', errors);
-
-	let username = '';
-	let password = '';
 </script>
 
-<NavLink />
 <form
 	use:enhance={{
 		result: async ({ form, response }) => {
-			$session.user = { username: 'waiting for response' };
+			$session.user = (await response.json()).user;
 		},
 		error: async ({ response }) => {
 			errors = (await response?.json()).errors;
@@ -46,27 +42,16 @@
 	}}
 	method="post"
 	class="flex flex-col items-center
-	justify-center h-full space-y-7 w-full max-w-2xl px-10"
+	justify-center h-full space-y-7 w-full container px-10"
 >
-	<TextInput
-		name="username"
-		type={TextType.text}
-		bind:value={username}
-		icon={UserIcon}
-		required
-	/>
+	<TextInput name="username" type={TextType.text} icon={UserIcon} required />
 	{#if errors?.error}
 		<p class="text-red-500">{errors.error}</p>
 	{/if}
 	{#if errors?.username}
 		<p class="text-red-500">{errors.username}</p>
 	{/if}
-	<TextInput
-		name="password"
-		type={TextType.password}
-		bind:value={password}
-		icon={LockIcon}
-	/>
+	<TextInput name="password" type={TextType.password} icon={LockIcon} />
 	{#if errors?.password}
 		<p class="text-red-500">{errors.password}</p>
 	{/if}
@@ -75,7 +60,7 @@
 			>Sign In</Button
 		>
 		<a
-			href="/auth/login"
+			href="/auth/register"
 			class="text-gray-400 border-b border-gray-400 hover:text-primary hover:border-primary transition-colors md:text-lg "
 			>Create New Account</a
 		>

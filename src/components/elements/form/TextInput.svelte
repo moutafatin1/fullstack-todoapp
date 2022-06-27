@@ -14,7 +14,7 @@
 
 	export let name: string;
 	export let type: TextType;
-	export let value: string;
+	export let value: string = '';
 	export let icon: typeof SvelteComponent | undefined = undefined;
 	export let required: boolean = false;
 

@@ -14,27 +14,23 @@
 </script>
 
 <script lang="ts">
-	import NavLink from '$root/components/auth/NavLink.svelte';
+	import { session } from '$app/stores';
+
 	import Button from '$root/components/elements/button/Button.svelte';
 	import TextInput from '$root/components/elements/form/TextInput.svelte';
 	import { TextType } from '$root/components/elements/form/type';
+
 	import { enhance } from '$root/lib/form';
 
-	import { LockIcon, UserIcon, MailIcon } from '$root/components/icons';
-
-	import { session } from '$app/stores';
+	import { LockIcon, UserIcon } from '$root/components/icons';
 
 	export let errors: {
 		username: string;
 		password: string;
 		error: string;
 	};
-
-	let username = '';
-	let password = '';
 </script>
 
-<NavLink />
 <form
 	use:enhance={{
 		result: async ({ response }) => {
@@ -48,13 +44,7 @@
 	class="flex flex-col items-center
 	justify-center h-full space-y-7 w-full container px-10"
 >
-	<TextInput
-		name="username"
-		type={TextType.text}
-		bind:value={username}
-		icon={UserIcon}
-		required
-	/>
+	<TextInput name="username" type={TextType.text} icon={UserIcon} required />
 	{#if errors?.error}
 		<p class="text-red-500">{errors.error}</p>
 	{/if}
@@ -64,7 +54,6 @@
 	<TextInput
 		name="password"
 		type={TextType.password}
-		bind:value={password}
 		icon={LockIcon}
 		required
 	/>
