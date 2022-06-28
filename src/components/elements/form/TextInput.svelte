@@ -24,7 +24,7 @@
 </script>
 
 <div class="relative flex items-center text-gray-400 w-full">
-	<svelte:component this={icon} class="absolute left-0" />
+	<svelte:component this={icon} class="absolute left-0 " />
 	<input
 		bind:value
 		type="text"

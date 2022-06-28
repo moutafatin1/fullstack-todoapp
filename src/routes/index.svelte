@@ -3,6 +3,7 @@
 	import { session } from '$app/stores';
 	import { enhance } from '$lib/form';
 	import { CheckSquareIcon } from '$root/components/icons';
+	import Logo from '$root/components/Logo.svelte';
 </script>
 
 <svelte:head>
@@ -13,10 +14,7 @@
 	<nav
 		class="flex items-center justify-between container mx-auto px-5 md:px-0 pt-5"
 	>
-		<div class="flex items-center space-x-2 text-2xl text-primary ">
-			<CheckSquareIcon class="h-10 w-10" />
-			<span class="text-gray-300 pointer-events-none">Epic Todo</span>
-		</div>
+		<Logo />
 		<div class="flex  items-center space-x-2 ">
 			{#if !$session.user}
 				<a
