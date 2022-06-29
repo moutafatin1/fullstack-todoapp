@@ -17,7 +17,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 	});
 
 	if (session) {
-		event.locals.user = { username: session.username };
+		event.locals.user = {
+			id: session.id,
+			username: session.username,
+			avatarUrl: session.avatarUrl,
+			email: session.email
+		};
 	}
 
 	return await resolve(event);
@@ -29,8 +34,6 @@ export const getSession: GetSession = ({ locals }) => {
 	}
 
 	return {
-		user: {
-			username: locals.user.username
-		}
+		user: locals.user
 	};
 };

@@ -5,13 +5,19 @@
 declare namespace App {
 	interface Locals {
 		user?: {
+			id: string;
 			username: string;
+			avatarUrl: string;
+			email: string | null;
 		};
 	}
 	// interface Platform {}
 	interface Session {
 		user?: {
+			id: string;
 			username: string;
+			avatarUrl: string;
+			email: string | null;
 		};
 	}
 	// interface Stuff {}
