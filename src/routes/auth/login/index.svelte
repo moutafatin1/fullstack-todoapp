@@ -33,7 +33,7 @@
 
 <form
 	use:enhance={{
-		result: async ({ form, response }) => {
+		result: async ({ response }) => {
 			$session.user = (await response.json()).user;
 		},
 		error: async ({ response }) => {
