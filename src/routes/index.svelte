@@ -2,7 +2,6 @@
 	import Button from '$root/components/elements/button/Button.svelte';
 	import { session } from '$app/stores';
 	import { enhance } from '$lib/form';
-	import { CheckSquareIcon } from '$root/components/icons';
 	import Logo from '$root/components/Logo.svelte';
 </script>
 
@@ -28,7 +27,7 @@
 					>
 				</a>
 			{:else}
-				<a href="/dashboard"
+				<a href="/app"
 					><Button class="rounded-full font-bold">Dashboard</Button></a
 				>
 				<form
