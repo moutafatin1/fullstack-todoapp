@@ -4,7 +4,7 @@
 	import { HomeIcon } from '../icons';
 </script>
 
-<div class="mt-5 flex items-center justify-between px-10 w-full">
+<div class="mt-5 flex items-center justify-between px-2 md:px-5 w-full">
 	<a href="/">
 		<HomeIcon
 			class="h-10 w-10 text-gray-300 hover:text-gray-500 hover:scale-95 transition-all"
