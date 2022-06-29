@@ -54,7 +54,9 @@ export const post: RequestHandler = async ({ request }) => {
 		return {
 			status: 400,
 			body: {
-				error: 'wrong credentials'
+				errors: {
+					error: 'Incorrect Credentials'
+				}
 			}
 		};
 	}
