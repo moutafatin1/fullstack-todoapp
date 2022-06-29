@@ -1,7 +1,12 @@
 <script>
 	import { sideBarIsOpen } from '$lib/stores/sideBar';
 	import clsx from 'clsx';
-	import { CalendarIcon, InboxIcon, ListIcon } from '$root/components/icons';
+	import {
+		CalendarIcon,
+		HomeIcon,
+		InboxIcon,
+		ListIcon
+	} from '$root/components/icons';
 	import Logo from '$root/components/Logo.svelte';
 	import StarIcon from 'svelte-feather-icons/src/icons/StarIcon.svelte';
 	import CloseButton from './CloseButton.svelte';
@@ -10,6 +15,7 @@
 	import UserSidebar from './UserSidebar.svelte';
 
 	const navigationItems = [
+		{ name: 'Home', href: '/app', icon: HomeIcon },
 		{ name: 'Today', href: '/app/today', icon: CalendarIcon },
 		{ name: 'Important', href: '/app/important', icon: StarIcon },
 		{ name: 'All', href: '/app/all', icon: InboxIcon }
