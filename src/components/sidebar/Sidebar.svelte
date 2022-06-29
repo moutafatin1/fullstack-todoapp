@@ -36,14 +36,16 @@
 		<NavigationItem
 			name="List 1"
 			icon={ListIcon}
-			href="/"
+			href="/app/collections/1"
 			class="text-gray-50 hover:bg-gray-400"
+			isCollection
 		/>
 		<NavigationItem
 			name="List 2"
 			icon={ListIcon}
-			href="/"
+			href="/app/collections/2"
 			class="text-gray-50 hover:bg-gray-400"
+			isCollection
 		/>
 	</ul>
 	<UserSidebar />
