@@ -11,7 +11,7 @@
 	<Sidebar />
 	<!-- Desktop Sidebar -->
 
-	<main>
+	<main class="h-screen w-full">
 		<div class="flex  p-2 md:hidden">
 			<button
 				on:click={handleSidebar}
