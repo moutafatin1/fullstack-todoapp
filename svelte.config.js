@@ -9,7 +9,6 @@ const config = {
 	preprocess: preprocess({
 		postcss: true
 	}),
-	
 
 	kit: {
 		adapter: adapter(),
@@ -19,6 +18,9 @@ const config = {
 					$root: path.resolve('./src')
 				}
 			}
+		},
+		methodOverride: {
+			allowed: ['PATCH']
 		}
 	}
 };
