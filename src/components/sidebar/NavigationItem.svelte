@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { handleSidebar } from '$root/lib/stores/sideBar';
 
 	import clsx from 'clsx';
 
@@ -11,7 +12,7 @@
 	export let isCollection: boolean = false;
 </script>
 
-<li>
+<li on:click={handleSidebar}>
 	<a
 		{href}
 		class={clsx(
