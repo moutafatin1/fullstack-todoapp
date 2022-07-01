@@ -1,6 +1,19 @@
 import { prisma } from '$root/lib/prisma';
 import type { RequestHandler } from '@sveltejs/kit';
 
+export const del: RequestHandler = async ({ request, params }) => {
+	const formData = await request.formData();
+	await prisma.task.delete({
+		where: {
+			id: params.taskId
+		}
+	});
+
+	return {
+		status : 204
+	};
+};
+
 export const patch: RequestHandler = async ({ request, params }) => {
 	const formData = await request.formData();
 	const isCompleted = formData.get('isCompleted');

@@ -16,7 +16,6 @@ export async function formValidation<ActionInput>({
 	try {
 		const formData = schema.parse({ username, password }) as ActionInput;
 
-		console.log('🚀 ~ file: utils.ts ~ line 16 ~ formData', formData);
 		return { formData, errors: null };
 	} catch (error) {
 		const errors = error as ZodError<ActionInput>;

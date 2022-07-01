@@ -1,9 +1,13 @@
 <script lang="ts">
+	import { invalidate } from '$app/navigation';
+	import { page } from '$app/stores';
+
 	import { enhance } from '$root/lib/form';
 
 	import type { Task } from '@prisma/client';
 
 	import clsx from 'clsx';
+	import { Trash2Icon } from '../icons';
 
 	import StarIcon from './StarIcon.svelte';
 	export let task: Task;
@@ -11,7 +15,7 @@
 
 <li
 	class={clsx(
-		'bg-primary px-7 py-4 flex items-center justify-between mx-5 rounded-lg',
+		'bg-primary px-7 py-4 flex items-center justify-between  rounded-lg',
 		task.isCompleted && 'bg-gray-400'
 	)}
 >
@@ -41,34 +45,49 @@
 		</form>
 		<span
 			class={clsx(
-				'font-medium text-xl text-gray-700',
+				'font-medium text-xl text-gray-700 break-all',
 				task.isCompleted && 'text-gray-500 line-through'
 			)}>{task.body}</span
 		>
 	</div>
-	<form
-		action={`/app/all/${task.id}?_method=patch`}
-		method="post"
-		use:enhance={{
-			result: () => {
-				task.isImportant = !task.isImportant;
-			}
-		}}
-	>
-		<input
-			type="hidden"
-			name="isImportant"
-			value={task.isImportant ? 'true' : 'false'}
-		/>
-		<button
-			class="rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none p-1"
+	<div class="flex items-center space-x-3">
+		<form
+			action={`/app/all/${task.id}?_method=patch`}
+			method="post"
+			use:enhance={{
+				result: () => {
+					task.isImportant = !task.isImportant;
+				}
+			}}
 		>
-			<StarIcon
-				height="40"
-				width="40"
-				color="#fff"
-				isImportant={task.isImportant}
+			<input
+				type="hidden"
+				name="isImportant"
+				value={task.isImportant ? 'true' : 'false'}
 			/>
-		</button>
-	</form>
+			<button class="rounded-lg   p-1">
+				<StarIcon
+					height="40"
+					width="40"
+					color="#fff"
+					isImportant={task.isImportant}
+				/>
+			</button>
+		</form>
+		<form
+			action={`/app/all/${task.id}?_method=delete`}
+			method="post"
+			use:enhance={{
+				result: () => {
+					invalidate(`${$page.url.href}`);
+				}
+			}}
+		>
+			<button class="rounded-lg   p-1">
+				<Trash2Icon
+					class="h-9 w-9 mt-1 text-gray-50 hover:text-red-500 transition-colors"
+				/>
+			</button>
+		</form>
+	</div>
 </li>
