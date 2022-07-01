@@ -1,6 +1,5 @@
 <script>
 	import { sideBarIsOpen } from '$lib/stores/sideBar';
-	import clsx from 'clsx';
 	import {
 		CalendarIcon,
 		HomeIcon,
@@ -8,10 +7,11 @@
 		ListIcon
 	} from '$root/components/icons';
 	import Logo from '$root/components/Logo.svelte';
+	import clsx from 'clsx';
 	import StarIcon from 'svelte-feather-icons/src/icons/StarIcon.svelte';
 	import CloseButton from './CloseButton.svelte';
-	import SearchInput from './SearchInput.svelte';
 	import NavigationItem from './NavigationItem.svelte';
+	import SearchInput from './SearchInput.svelte';
 	import UserSidebar from './UserSidebar.svelte';
 
 	const navigationItems = [
@@ -24,7 +24,7 @@
 
 <div
 	class={clsx(
-		'max-w-xs w-full h-full flex flex-col  shadow-md bg-darkGray  absolute   -translate-x-full transition-all md:-translate-x-0 md:static ',
+		'max-w-xs w-full h-full flex flex-col  shadow-md bg-darkGray  absolute   -translate-x-full transition-all md:-translate-x-0 md:static z-40 px-3',
 		$sideBarIsOpen && '-translate-x-0'
 	)}
 >
