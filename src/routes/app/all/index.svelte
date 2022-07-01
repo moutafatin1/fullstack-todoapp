@@ -20,12 +20,12 @@
 	import { afterUpdate } from 'svelte';
 
 	export let tasks: Task[];
-
+	afterUpdate(() => {
+		if (tasks) scrollToBottom(ulElement);
+	});
 	let ulElement: HTMLUListElement;
-	$: if (tasks) {
-		afterUpdate(() => {
-			scrollToBottom(ulElement);
-		});
+	$: if (tasks && ulElement) {
+		scrollToBottom(ulElement);
 	}
 
 	const scrollToBottom = (node: HTMLUListElement) => {
