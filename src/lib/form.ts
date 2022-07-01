@@ -65,10 +65,6 @@ export function enhance(
 				const url = new URL(form.action);
 				url.search = url.hash = '';
 				invalidate(url.href);
-				console.log(
-					'🚀 ~ file: form.ts ~ line 68 ~ handle_submit ~ url.href',
-					url.href
-				);
 			} else if (error) {
 				error({ data, form, error: null, response });
 			} else {
